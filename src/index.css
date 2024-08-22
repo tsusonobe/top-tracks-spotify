@@ -5,6 +5,7 @@
   --darkgray: #1a1a1a;
   --lightgray: #2b2b2b;
   --offwhite: #cbcdcd;
+  --loading: linear-gradient(90deg, rgb(59, 59, 59) 0%, rgb(71, 71, 71) 100%);
   --spotifygreen: #1DB954;
   --lightgreen: #CBF55C;
 }
@@ -99,10 +100,6 @@ a:hover{
   text-decoration: underline;
 }
 
-.login:hover{
-  text-decoration: none;
-}
-
 .window-controls {
   height: 20px;
   width: 80px;
@@ -148,6 +145,22 @@ a:hover{
 
 .profile-name {
   color: var(--offwhite);
+}
+
+.loading-profile-img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background: var(--loading);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loading-profile-name{
+  width: 50%;
+  height: 16px;
+  border-radius: 8px;
+  background: var(--loading);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .parameters{
@@ -244,10 +257,6 @@ main {
   gap: 20px;
 }
 
-/* .item:hover{
-  background-color: #393939;
-} */
-
 .item-index {
   width: 70px;
   display: flex;
@@ -265,15 +274,27 @@ main {
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.3);
 }
 
-/* .item-img:hover{
-  box-shadow: 0 0 0 10px rgb(62, 62, 62);
-} */
+.loading-item-img{
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  background: var(--loading);
+  /* background: linear-gradient(90deg, rgba(26,26,26,1) 0%, rgba(74,74,74,1) 100%); */
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
 .item-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2px;
+}
+
+.loading-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .item-name {
@@ -281,6 +302,13 @@ main {
   font-weight: 500;
   transform: scale(1, 1.03);
   color: var(--lightgreen)
+}
+
+.loading-item-name{
+  width: 200px;
+  height: 25px;
+  border-radius: 10px;
+  background: var(--loading);
 }
 
 .item-artist-container{
@@ -297,5 +325,20 @@ main {
   flex-direction: row;
 }
 
+.loading-artist-name{
+  width: 150px;
+  height: 15px;
+  border-radius: 10px;
+  background: var(--loading);
+}
+
 
 /* animations and transitions */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAccessToken } from "../authorization";
 import { getProfile, getTop } from "../requests";
 import Items from "./Items";
+import Loading from "./Loading";
 
 const clientId = import.meta.env.VITE_CLIENT_ID;
 
@@ -14,6 +15,7 @@ export default function Dashboard(props) {
 	const [type, setType] = useState("tracks");
 	const [profile, setProfile] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
+	const [isLoadingItems, setIsLoadingItems] = useState(true);
 
 	useEffect(() => {
 		if (!accessToken) {
@@ -28,10 +30,19 @@ export default function Dashboard(props) {
 				const profile = await getProfile(accessToken);
 				setProfile({
 					name: profile.display_name,
+					userUrl: profile.external_urls.spotify,
 					imageUrl: profile.images[0].url,
 				});
 			};
+			getUser().catch(console.error);
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
+		}
+	}, [accessToken, props.code]);
 
+	useEffect(() => {
+		if(accessToken){
 			const getTopItems = async () => {
 				const items = await getTop(accessToken, type, timeRange, limit);
 				if (type === "tracks") {
@@ -59,16 +70,14 @@ export default function Dashboard(props) {
 						})
 					);
 				}
-			}
-
-			getUser().catch(console.error);
+			};			
 			getTopItems().catch(console.error);
 
 			setTimeout(() => {
-				setIsLoading(false);
-			}, 400);
+				setIsLoadingItems(false);
+			}, 1000);
 		}
-	}, [accessToken, props.code, type, timeRange, limit]);
+	}, [accessToken, type, timeRange, limit]);
 
 	return (
 		<>
@@ -80,19 +89,19 @@ export default function Dashboard(props) {
 						<div className="window-controls-button"></div>
 					</div>
 
-					{profile.name !== "" && (
+					{isLoading ? <Loading type="profile"/> : (
 						<div className="profile">
+							<img
+								className="profile-img"
+								src={profile.imageUrl}
+							/>
 							<a
-								href={profile.profileUrl}
+								href={profile.userUrl}
 								target="_blank"
 								rel="noopener noreferrer"
 							>
-								<img
-									className="profile-img"
-									src={profile.imageUrl}
-								/>
+								<p className="profile-name">{profile.name}</p>
 							</a>
-							<p className="profile-name">{profile.name}</p>
 						</div>
 					)}
 
@@ -102,7 +111,7 @@ export default function Dashboard(props) {
 							<div
 								className="button-selected"
 								onClick={(e) => {
-									setIsLoading(true);
+									setIsLoadingItems(true);
 									setType("tracks");
 									e.target.className = "button-selected";
 									e.target.nextElementSibling.className = "button";
@@ -113,7 +122,7 @@ export default function Dashboard(props) {
 							<div
 								className="button"
 								onClick={(e) => {
-									setIsLoading(true);
+									setIsLoadingItems(true);
 									setType("artists");
 									e.target.className = "button-selected";
 									e.target.previousElementSibling.className = "button";
@@ -183,8 +192,8 @@ export default function Dashboard(props) {
 					</h2>
 					<div className="items-container">
 						{type === "tracks" &&
+							!isLoadingItems &&
 							tracks &&
-							!isLoading &&
 							tracks.map((track, index) => (
 								<Items
 									type={type}
@@ -194,8 +203,8 @@ export default function Dashboard(props) {
 								/>
 							))}
 						{type === "artists" &&
+							!isLoadingItems &&
 							artists &&
-							!isLoading &&
 							artists.map((artist, index) => (
 								<Items
 									type={type}
@@ -204,6 +213,16 @@ export default function Dashboard(props) {
 									artist={artist}
 								/>
 							))}
+
+						{isLoadingItems &&
+							Array.from(Array(Number(limit)).keys()).map((_, index) => (
+								<Loading
+									type={type}
+									key={index}
+									index={index}
+								/>
+							))}
+
 					</div>
 				</main>
 			</div>
