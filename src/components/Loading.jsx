@@ -18,6 +18,7 @@ export default function Loading(props) {
 					</div>
 				</div>
 			)}
+      
 			{props.type === "artists" && (
 				<div className="item">
 					<p className="item-index">{props.index + 1}</p>
