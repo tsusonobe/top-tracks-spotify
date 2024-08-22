@@ -20,7 +20,7 @@ export default function Dashboard(props) {
 			const getToken = async () => {
 				const token = await getAccessToken(clientId, props.code);
 				setAccessToken(token);
-				window.history.pushState({}, null, "/");
+				window.history.replaceState({}, document.title, "/top-tracks-spotify");
 			};
 			getToken().catch(console.error);
 		} else {
