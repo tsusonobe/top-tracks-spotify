@@ -1,5 +1,5 @@
-// const redirectUri = import.meta.env.VITE_REDIRECT_URI;
-const redirectUri = "https://tsusonobe.github.io/top-tracks-spotify/"
+const redirectUri = import.meta.env.VITE_REDIRECT_URI;
+// const redirectUri = "https://tsusonobe.github.io/top-tracks-spotify/"
 const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 
 export async function redirectToAuthCodeFlow(clientId) {
