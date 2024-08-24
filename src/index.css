@@ -63,6 +63,57 @@
   transform: scale(1.03); 
 }
 
+.player-container{
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+.loading-player{
+  height: 156px;
+  width: 300px;
+  border-radius: 15px;
+  background-color: #282828;
+  position: relative;
+}
+
+.loading-img-player{
+  height: 96px;
+  width: 96px;
+  border-radius: 15px;
+  background: var(--loading);
+
+  position: absolute;
+  left: 12px;
+  top: 12px;
+
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loading-track-player{
+  width: 100px;
+  height: 20px;
+  border-radius: 15px;
+  background: var(--loading);
+  position: absolute;
+  left: 120px;
+  top: 38px;
+
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.loading-artist-player{
+  width: 80px;
+  height: 20px;
+  border-radius: 15px;
+  background: var(--loading);
+  position: absolute;
+  left: 120px;
+  top: 68px;
+
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 .grid-container {
   height: 720px;
   max-width: 1100px;
