@@ -8,10 +8,13 @@ export default function Items(props) {
 		if (ref.current === null)
 			return;
     if (ref.current.clientWidth < ref.current.scrollWidth) {
-			ref.current.className = "item-name-overflow";
+			ref.current.setAttribute("overflow", true);
 			const translateDist = (ref.current.clientWidth - ref.current.scrollWidth) - 5;
-			document.documentElement.style.setProperty('--translateDist', `${translateDist}px`);
+			ref.current.style = `--translateDist: ${translateDist}px`;
     }
+		else {
+			ref.current.setAttribute("overflow", false);
+		}
   }, [ref]);
 
 	return (
