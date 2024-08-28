@@ -45,7 +45,6 @@ export default function Dashboard(props) {
 		if(accessToken){
 			const getTopItems = async () => {
 				const items = await getTop(accessToken, type, timeRange, limit);
-				console.log(items);
 				if (type === "tracks") {
 					setTracks(
 						items.map((track) => {

@@ -335,9 +335,14 @@ main {
 }
 
 .item-info {
+  height: 54px;
+  width: 70%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
 }
 
 .loading-item-info {
@@ -349,10 +354,16 @@ main {
 }
 
 .item-name {
+  width: 100%;
   font-size: 22px;
   font-weight: 500;
   transform: scale(1, 1.03);
-  color: var(--lightgreen)
+  color: var(--lightgreen);
+  white-space: nowrap;
+}
+
+.item-name-overflow{
+  animation: auto-scroll 12s infinite;
 }
 
 .loading-item-name{
@@ -383,7 +394,6 @@ main {
   background: var(--loading);
 }
 
-
 /* animations and transitions */
 @keyframes pulse {
   0%, 100% {
@@ -391,5 +401,17 @@ main {
   }
   50% {
     opacity: .5;
+  }
+}
+
+@keyframes auto-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(var(--translateDist));
+  }
+  100% {
+    transform: translateX(0);
   }
 }

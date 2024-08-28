@@ -1,4 +1,19 @@
+import { useLayoutEffect } from "react";
+import { createRef } from "react";
+
 export default function Items(props) {
+	const ref = createRef();
+
+	useLayoutEffect(() => {
+		if (ref.current === null)
+			return;
+    if (ref.current.clientWidth < ref.current.scrollWidth) {
+			ref.current.className = "item-name-overflow";
+			const translateDist = (ref.current.clientWidth - ref.current.scrollWidth) - 5;
+			document.documentElement.style.setProperty('--translateDist', `${translateDist}px`);
+    }
+  }, [ref]);
+
 	return (
 		<>
 			{props.type === "tracks" && (
@@ -21,7 +36,7 @@ export default function Items(props) {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<p className="item-name">{props.track.name}</p>
+							<p className="item-name" ref={ref}>{props.track.name}</p>
 						</a>
 						<div className="item-artist-container">
 							{props.track.artist.map((artist, index) => (
